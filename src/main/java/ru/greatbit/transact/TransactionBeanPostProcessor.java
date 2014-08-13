@@ -24,7 +24,8 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
         Class<?> beanClass = o.getClass();
-        if (beanClass.isAnnotationPresent(Transactionable.class)){
+        if (beanClass.isAnnotationPresent(Transactionable.class)
+                || classInterfacesContainAnnotation(beanClass, Transactionable.class)){
             map.put(s, beanClass);
         }
         return o;
@@ -70,5 +71,15 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
             });
         }
         return o;
+    }
+
+
+    private boolean classInterfacesContainAnnotation(Class clazz, Class annotation){
+        for (Class interfaceClass : clazz.getInterfaces()){
+            if (interfaceClass.isAnnotationPresent(annotation)){
+                return true;
+            }
+        }
+        return false;
     }
 }

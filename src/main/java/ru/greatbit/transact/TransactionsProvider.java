@@ -16,6 +16,12 @@ import java.util.Map;
 public class TransactionsProvider {
     public static Transaction[] getTransactions(Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Annotation transactionable = clazz.getAnnotation(Transactionable.class);
+        if (transactionable == null){
+            transactionable = getAnnotationFromInterfaces(clazz, Transactionable.class);
+        }
+        if (transactionable == null) {
+            return new Transaction[]{};
+        }
         Method method = Transactionable.class.getMethod("transactions", (Class[]) null);
         return (Transaction[]) method.invoke(transactionable, (Object[])null);
     }
@@ -30,5 +36,14 @@ public class TransactionsProvider {
             methods.put(transaction.methodName(), transactionMethodMeta);
         }
         return methods;
+    }
+
+    public static Annotation getAnnotationFromInterfaces(Class clazz, Class annotation){
+        for (Class interfaceClass : clazz.getInterfaces()){
+            if (interfaceClass.isAnnotationPresent(annotation)){
+                return interfaceClass.getAnnotation(annotation);
+            }
+        }
+        return null;
     }
 }

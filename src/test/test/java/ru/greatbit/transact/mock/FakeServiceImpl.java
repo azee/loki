@@ -1,11 +1,11 @@
 package ru.greatbit.transact.mock;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 /**
  * Created by azee on 13.08.14.
  */
-@Service
+@Component
 public class FakeServiceImpl implements FakeService{
     @Override
     public void doSmt2(FakeObject valueToUpdate, FakeObject id) {

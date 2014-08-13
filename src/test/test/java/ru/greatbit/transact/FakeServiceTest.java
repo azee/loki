@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.greatbit.transact.mock.FakeObject;
-import ru.greatbit.transact.mock.FakeServiceImpl;
+import ru.greatbit.transact.mock.FakeService;
 
 /**
  * Created by azee on 13.08.14.
@@ -16,13 +16,13 @@ import ru.greatbit.transact.mock.FakeServiceImpl;
 @SuppressWarnings("SpringJavaAutowiringInspection")
 public class FakeServiceTest {
     @Autowired
-    FakeServiceImpl fakeServiceImpl;
+    FakeService fakeService;
 
     @Test
     public void testStringPaths(){
-        fakeServiceImpl.doSmt("Value1", "Value2");
-        fakeServiceImpl.doSmt1(new FakeObject(), "Value2");
-        fakeServiceImpl.doSmt2(new FakeObject(), new FakeObject());
-        fakeServiceImpl.doSmt2(new FakeObject(), new FakeObject().withId("Value2"));
+        fakeService.doSmt("Value1", "Value2");
+        fakeService.doSmt1(new FakeObject(), "Value2");
+        fakeService.doSmt2(new FakeObject(), new FakeObject());
+        fakeService.doSmt2(new FakeObject(), new FakeObject().withId("SomeId"));
     }
 }

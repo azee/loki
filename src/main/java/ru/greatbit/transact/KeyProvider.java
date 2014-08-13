@@ -28,9 +28,9 @@ public class KeyProvider {
         }
 
         List<String> path = new LinkedList<String>();
-        path.addAll(Arrays.asList(meta.getIdPath().split(".")));
+        path.addAll(Arrays.asList(meta.getIdPath().split("/.")));
 
-        return findValue(obj, clazz, path);
+        return findValue(arg, arg.getClass(), path);
     }
 
     private static String returnDefault(Class clazz, Method method){
@@ -39,8 +39,8 @@ public class KeyProvider {
 
     private static String findValue(Object object, Class clazz, List<String> path){
         if (path.size() != 0){
-            path.remove(0);
             Object nextObject = getObjectFromField(object, clazz, path.get(0).trim());
+            path.remove(0);
             if (nextObject != null){
                 return findValue(nextObject, clazz, path);
             }

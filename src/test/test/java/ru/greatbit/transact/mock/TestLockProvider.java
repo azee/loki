@@ -11,6 +11,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class TestLockProvider implements LockProvider {
     @Override
     public Lock getLock(String key) {
+
         return new ReentrantLock();
     }
 }

@@ -1,5 +1,6 @@
 package ru.greatbit.transact.mock;
 
+import org.springframework.stereotype.Service;
 import ru.greatbit.transact.Transaction;
 import ru.greatbit.transact.Transactionable;
 
@@ -11,6 +12,7 @@ import ru.greatbit.transact.Transactionable;
         @Transaction(methodName = "doSmt1", parameter = 1, lockIdPath = ""),
         @Transaction(methodName = "doSmt2", parameter = 1, lockIdPath = "id")
 })
+@Service
 public interface FakeService {
     public void doSmt(String valueToUpdate, String id);
     public void doSmt1(FakeObject valueToUpdate, String id);
