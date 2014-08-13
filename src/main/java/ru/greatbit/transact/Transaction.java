@@ -5,5 +5,6 @@ package ru.greatbit.transact;
  */
 public @interface Transaction {
     public String methodName();
+    public int parameter();
     public String lockIdPath();
 }
