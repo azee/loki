@@ -14,13 +14,13 @@ import java.util.Map;
  */
 @Service
 public class TransactionsProvider {
-    public Transaction[] getTransactions(Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static Transaction[] getTransactions(Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Annotation transactionable = clazz.getAnnotation(Transactionable.class);
         Method method = Transactionable.class.getMethod("transactions", (Class[]) null);
         return (Transaction[]) method.invoke(transactionable, (Object[])null);
     }
 
-    public Map<String, TransactionMethodMeta> getTransactionableMethodsMeta(Transaction[] transactions){
+    public static Map<String, TransactionMethodMeta> getTransactionableMethodsMeta(Transaction[] transactions){
         Map<String, TransactionMethodMeta> methods = new HashMap<String, TransactionMethodMeta>();
         for (Transaction transaction : transactions){
             TransactionMethodMeta transactionMethodMeta = new TransactionMethodMeta();

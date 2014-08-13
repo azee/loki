@@ -21,12 +21,6 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
     @Autowired
     LockProvider lockProvider;
 
-    @Autowired
-    KeyProvider keyProvider;
-
-    @Autowired
-    TransactionsProvider transactionsProvider;
-
     @Override
     public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
         Class<?> beanClass = o.getClass();
@@ -42,7 +36,7 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
         if (beanClass != null){
             Transaction[] transactions;
             try {
-                transactions = transactionsProvider.getTransactions(beanClass);
+                transactions = TransactionsProvider.getTransactions(beanClass);
             } catch (Exception e) {
                 return o;
             }
@@ -50,7 +44,7 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
             if (transactions.length == 0){
                 return o;
             }
-            final Map<String, TransactionMethodMeta> methods = transactionsProvider.getTransactionableMethodsMeta(transactions);
+            final Map<String, TransactionMethodMeta> methods = TransactionsProvider.getTransactionableMethodsMeta(transactions);
 
             return Proxy.newProxyInstance(beanClass.getClassLoader(), beanClass.getInterfaces(), new InvocationHandler() {
                 @Override
@@ -61,7 +55,7 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
 
                     Lock lock = null;
                     try {
-                        lock = lockProvider.getLock(keyProvider.getKey(o, beanClass, method, args, methods.get(method.getName())));
+                        lock = lockProvider.getLock(KeyProvider.getKey(o, beanClass, method, args, methods.get(method.getName())));
                         if (lock != null){
                             lock.lock();
                             return method.invoke(o, args);
