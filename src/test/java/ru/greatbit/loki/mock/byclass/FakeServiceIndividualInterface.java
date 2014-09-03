@@ -1,4 +1,6 @@
-package ru.greatbit.loki.mock;
+package ru.greatbit.loki.mock.byclass;
+
+import ru.greatbit.loki.mock.beans.FakeObject;
 
 /**
  * Created by azee on 03.09.14.

@@ -1,4 +1,4 @@
-package ru.greatbit.loki.mock;
+package ru.greatbit.loki.mock.beans;
 
 /**
  * Created by azee on 13.08.14.

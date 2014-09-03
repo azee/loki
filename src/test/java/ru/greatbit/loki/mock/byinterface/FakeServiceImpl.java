@@ -1,7 +1,8 @@
-package ru.greatbit.loki.mock;
+package ru.greatbit.loki.mock.byinterface;
 
 import org.springframework.stereotype.Component;
 import ru.greatbit.loki.LockId;
+import ru.greatbit.loki.mock.beans.FakeObject;
 
 /**
  * Created by azee on 13.08.14.

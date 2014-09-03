@@ -7,9 +7,9 @@ import org.kubek2k.springockito.annotations.SpringockitoContextLoader;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ru.greatbit.loki.mock.FakeObject;
-import ru.greatbit.loki.mock.FakeService;
-import ru.greatbit.loki.mock.FakeServiceIndividualInterface;
+import ru.greatbit.loki.mock.beans.FakeObject;
+import ru.greatbit.loki.mock.byinterface.FakeService;
+import ru.greatbit.loki.mock.byclass.FakeServiceIndividualInterface;
 
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.argThat;
@@ -55,10 +55,10 @@ public class FakeServiceTest {
         verify(lockProvider).getLock(argThat(is("SomeId")));
 
         fakeService.doSmtWrong("Value1", "LockIdWrong");
-        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceImpl-doSmtWrong")));
+        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.byinterface.FakeServiceImpl-doSmtWrong")));
 
         fakeService.doSmtWrong1("Value1", "LockIdWrong1");
-        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceImpl-doSmtWrong1")));
+        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.byinterface.FakeServiceImpl-doSmtWrong1")));
     }
 
     @Test
