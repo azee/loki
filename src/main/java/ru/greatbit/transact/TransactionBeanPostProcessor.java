@@ -56,7 +56,7 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
 
                     Lock lock = null;
                     try {
-                        lock = lockProvider.getLock(KeyProvider.getKey(o, beanClass, method, args, methods.get(method.getName())));
+                        lock = lockProvider.getLock(KeyProvider.getKey(beanClass, method, args, methods.get(method.getName())));
                         if (lock != null){
                             lock.lock();
                             return method.invoke(o, args);
