@@ -1,4 +1,4 @@
-package ru.greatbit.transact;
+package ru.greatbit.loki;
 
 import java.util.concurrent.locks.Lock;
 

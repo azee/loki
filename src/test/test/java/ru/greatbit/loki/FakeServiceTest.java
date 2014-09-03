@@ -1,12 +1,12 @@
-package ru.greatbit.transact;
+package ru.greatbit.loki;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import ru.greatbit.transact.mock.FakeObject;
-import ru.greatbit.transact.mock.FakeService;
+import ru.greatbit.loki.mock.FakeObject;
+import ru.greatbit.loki.mock.FakeService;
 
 /**
  * Created by azee on 13.08.14.

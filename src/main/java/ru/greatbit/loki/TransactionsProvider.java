@@ -1,7 +1,7 @@
-package ru.greatbit.transact;
+package ru.greatbit.loki;
 
 import org.springframework.stereotype.Service;
-import ru.greatbit.transact.data.TransactionMethodMeta;
+import ru.greatbit.loki.data.TransactionMethodMeta;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;

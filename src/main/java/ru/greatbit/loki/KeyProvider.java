@@ -1,6 +1,6 @@
-package ru.greatbit.transact;
+package ru.greatbit.loki;
 
-import ru.greatbit.transact.data.TransactionMethodMeta;
+import ru.greatbit.loki.data.TransactionMethodMeta;
 import ru.greatbit.utils.refclection.FieldsFetcher;
 
 import java.lang.reflect.InvocationTargetException;

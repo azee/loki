@@ -1,6 +1,6 @@
-package ru.greatbit.transact.mock;
+package ru.greatbit.loki.mock;
 
-import ru.greatbit.transact.LockProvider;
+import ru.greatbit.loki.LockProvider;
 
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;

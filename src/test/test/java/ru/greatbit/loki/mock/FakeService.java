@@ -1,8 +1,8 @@
-package ru.greatbit.transact.mock;
+package ru.greatbit.loki.mock;
 
 import org.springframework.stereotype.Service;
-import ru.greatbit.transact.Transaction;
-import ru.greatbit.transact.Transactionable;
+import ru.greatbit.loki.Transaction;
+import ru.greatbit.loki.Transactionable;
 
 /**
  * Created by azee on 13.08.14.

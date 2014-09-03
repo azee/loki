@@ -1,4 +1,4 @@
-package ru.greatbit.transact.mock;
+package ru.greatbit.loki.mock;
 
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package ru.greatbit.transact;
+package ru.greatbit.loki;
 
 /**
  * Created by azee on 12.08.14.

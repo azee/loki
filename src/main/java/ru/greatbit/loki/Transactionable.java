@@ -1,4 +1,4 @@
-package ru.greatbit.transact;
+package ru.greatbit.loki;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

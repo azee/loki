@@ -1,4 +1,4 @@
-package ru.greatbit.transact.mock;
+package ru.greatbit.loki.mock;
 
 /**
  * Created by azee on 13.08.14.

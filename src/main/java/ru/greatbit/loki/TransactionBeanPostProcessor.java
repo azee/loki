@@ -1,9 +1,9 @@
-package ru.greatbit.transact;
+package ru.greatbit.loki;
 
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import ru.greatbit.transact.data.TransactionMethodMeta;
+import ru.greatbit.loki.data.TransactionMethodMeta;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;

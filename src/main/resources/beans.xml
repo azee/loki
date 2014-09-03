@@ -20,8 +20,8 @@
 
     <bean class="${lock.provider}" id="lockProvider" />
 
-    <bean class="ru.greatbit.transact.TransactionBeanPostProcessor"/>
+    <bean class="ru.greatbit.loki.TransactionBeanPostProcessor"/>
 
-    <context:component-scan base-package="ru.greatbit.transact" />
+    <context:component-scan base-package="ru.greatbit.loki" />
 
 </beans>
