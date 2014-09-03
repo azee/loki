@@ -1,7 +1,7 @@
 package ru.greatbit.loki;
 
 import org.springframework.stereotype.Service;
-import ru.greatbit.loki.data.TransactionMethodMeta;
+import ru.greatbit.loki.data.MethodMeta;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
@@ -26,14 +26,14 @@ public class TransactionsProvider {
         return (Transaction[]) method.invoke(transactionable, (Object[])null);
     }
 
-    public static Map<String, TransactionMethodMeta> getTransactionableMethodsMeta(Transaction[] transactions){
-        Map<String, TransactionMethodMeta> methods = new HashMap<String, TransactionMethodMeta>();
+    public static Map<String, MethodMeta> getTransactionableMethodsMeta(Transaction[] transactions){
+        Map<String, MethodMeta> methods = new HashMap<String, MethodMeta>();
         for (Transaction transaction : transactions){
-            TransactionMethodMeta transactionMethodMeta = new TransactionMethodMeta();
-            transactionMethodMeta.setName(transaction.methodName());
-            transactionMethodMeta.setIdArgumentIndex(transaction.parameter());
-            transactionMethodMeta.setIdPath(transaction.lockIdPath());
-            methods.put(transaction.methodName(), transactionMethodMeta);
+            MethodMeta methodMeta = new MethodMeta();
+            methodMeta.setName(transaction.methodName());
+            methodMeta.setIdArgumentIndex(transaction.parameter());
+            methodMeta.setIdPath(transaction.lockIdPath());
+            methods.put(transaction.methodName(), methodMeta);
         }
         return methods;
     }

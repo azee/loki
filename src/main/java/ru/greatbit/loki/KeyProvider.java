@@ -1,6 +1,6 @@
 package ru.greatbit.loki;
 
-import ru.greatbit.loki.data.TransactionMethodMeta;
+import ru.greatbit.loki.data.MethodMeta;
 import ru.greatbit.utils.refclection.FieldsFetcher;
 
 import java.lang.reflect.InvocationTargetException;
@@ -15,7 +15,7 @@ import java.util.List;
 public class KeyProvider {
     private static final String DELIM = "-";
 
-    public static String getKey(Class clazz, Method method, Object[] args, TransactionMethodMeta meta) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static String getKey(Class clazz, Method method, Object[] args, MethodMeta meta) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         if (meta == null || meta.getIdPath() == null || "".equals(meta.getIdPath())
                 || args.length == 0 || meta.getIdArgumentIndex() >= args.length){
             return returnDefault(clazz, method);

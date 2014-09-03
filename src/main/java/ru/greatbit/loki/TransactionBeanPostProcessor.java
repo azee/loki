@@ -3,7 +3,7 @@ package ru.greatbit.loki;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.BeanPostProcessor;
-import ru.greatbit.loki.data.TransactionMethodMeta;
+import ru.greatbit.loki.data.MethodMeta;
 
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
@@ -45,7 +45,7 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
             if (transactions.length == 0){
                 return o;
             }
-            final Map<String, TransactionMethodMeta> methods = TransactionsProvider.getTransactionableMethodsMeta(transactions);
+            final Map<String, MethodMeta> methods = TransactionsProvider.getTransactionableMethodsMeta(transactions);
 
             return Proxy.newProxyInstance(beanClass.getClassLoader(), beanClass.getInterfaces(), new InvocationHandler() {
                 @Override

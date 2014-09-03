@@ -3,7 +3,7 @@ package ru.greatbit.loki.data;
 /**
  * Created by azee on 13.08.14.
  */
-public class TransactionMethodMeta {
+public class MethodMeta {
     private String name;
     private int idArgumentIndex;
     private String idPath;
