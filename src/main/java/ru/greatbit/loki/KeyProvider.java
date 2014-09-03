@@ -35,7 +35,7 @@ public class KeyProvider {
 
         //Couldn't find parameter containing lock id
         if (meta.getIdArgumentIndex() >= args.length || meta.getIdArgumentIndex() < 0
-                || meta.getIdPath() == null || "".equals(meta.getIdPath())){
+                || meta.getIdPath() == null ){
             return returnDefault(clazz, method);
         }
 

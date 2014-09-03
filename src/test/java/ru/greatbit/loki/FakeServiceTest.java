@@ -35,14 +35,17 @@ public class FakeServiceTest {
 
     @Test
     public void testLockByInterface(){
-        fakeService.doSmt("Value1", "Value2");
-        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceImpl-doSmt")));
+        fakeService.doSmt("Value1", "LockId1");
+        verify(lockProvider).getLock(argThat(is("LockId1")));
 
-        fakeService.doSmt1(new FakeObject(), "Value2");
-        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceImpl-doSmt1")));
+        fakeService.doSmt1(new FakeObject(), "LockId2");
+        verify(lockProvider).getLock(argThat(is("LockId2")));
 
         fakeService.doSmt2(new FakeObject(), new FakeObject().withId("SomeId2"));
         verify(lockProvider).getLock(argThat(is("SomeId2")));
+
+        fakeService.doSmt3(new FakeObject(), "SomeId3");
+        verify(lockProvider).getLock(argThat(is("SomeId3")));
 
         FakeObject fo = new FakeObject();
         fakeService.doSmtParent(new FakeObject(), fo);
@@ -50,15 +53,21 @@ public class FakeServiceTest {
 
         fakeService.doSmtParent(new FakeObject(), new FakeObject().withId("SomeId"));
         verify(lockProvider).getLock(argThat(is("SomeId")));
+
+        fakeService.doSmtWrong("Value1", "LockIdWrong");
+        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceImpl-doSmtWrong")));
+
+        fakeService.doSmtWrong1("Value1", "LockIdWrong1");
+        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceImpl-doSmtWrong1")));
     }
 
     @Test
     public void testLockByClass(){
-        fakeServiceIndividual.doSmt("Value1", "Value2");
-        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceIndividual-doSmt")));
+        fakeServiceIndividual.doSmt("Value1", "IndividualLockId1");
+        verify(lockProvider).getLock(argThat(is("IndividualLockId1")));
 
-        fakeServiceIndividual.doSmt1(new FakeObject(), "Value2");
-        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceIndividual-doSmt1")));
+        fakeServiceIndividual.doSmt1(new FakeObject(), "IndividualLockId2");
+        verify(lockProvider).getLock(argThat(is("IndividualLockId2")));
 
         FakeObject fo = new FakeObject();
         fakeServiceIndividual.doSmtParent(new FakeObject(), fo);

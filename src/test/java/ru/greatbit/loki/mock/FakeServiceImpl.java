@@ -27,4 +27,19 @@ public class FakeServiceImpl implements FakeService{
     public void doSmt2(FakeObject valueToUpdate, @LockId FakeObject id) {
 
     }
+
+    @Override
+    public void doSmt3(FakeObject valueToUpdate, @LockId(path = "") String id) {
+
+    }
+
+    @Override
+    public void doSmtWrong(String valueToUpdate, String id) {
+
+    }
+
+    @Override
+    public void doSmtWrong1(String valueToUpdate, String id) {
+
+    }
 }
