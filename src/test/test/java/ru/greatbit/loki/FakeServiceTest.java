@@ -9,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.greatbit.loki.mock.FakeObject;
 import ru.greatbit.loki.mock.FakeService;
-import ru.greatbit.loki.mock.FakeServiceIndividual;
 import ru.greatbit.loki.mock.FakeServiceIndividualInterface;
 
 import static org.hamcrest.core.Is.is;
