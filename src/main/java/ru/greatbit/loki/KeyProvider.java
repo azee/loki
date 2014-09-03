@@ -22,17 +22,6 @@ public class KeyProvider {
             return returnDefault(clazz, method);
         }
 
-        //Redefine index if parameter is annotated as LockId
-        Annotation[][] annotations = method.getParameterAnnotations();
-        for (int i = 0; i < annotations.length; i++){
-            for (Annotation annotation : annotations[i]){
-                if (annotation instanceof LockId){
-                    meta.setIdArgumentIndex(i);
-                    meta.setIdPath(((LockId) annotation).path());
-                }
-            }
-        }
-
         //Couldn't find parameter containing lock id
         if (meta.getIdArgumentIndex() >= args.length || meta.getIdArgumentIndex() < 0
                 || meta.getIdPath() == null ){

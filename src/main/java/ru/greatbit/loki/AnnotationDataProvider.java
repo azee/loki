@@ -29,7 +29,17 @@ public class AnnotationDataProvider {
             if (method.isAnnotationPresent(Lock.class)){
                 MethodMeta methodMeta = new MethodMeta();
                 methodMeta.setName(method.getName());
-                //Path and parameterIndex will be set up in KeyProvider
+
+                //Get data from LockId annotation
+                Annotation[][] annotations = method.getParameterAnnotations();
+                for (int i = 0; i < annotations.length; i++){
+                    for (Annotation annotation : annotations[i]){
+                        if (annotation instanceof LockId){
+                            methodMeta.setIdArgumentIndex(i);
+                            methodMeta.setIdPath(((LockId) annotation).path());
+                        }
+                    }
+                }
                 methods.put(method.getName(), methodMeta);
             }
         }
