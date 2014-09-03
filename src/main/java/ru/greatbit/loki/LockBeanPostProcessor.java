@@ -36,7 +36,7 @@ public class LockBeanPostProcessor implements BeanPostProcessor {
         if (beanClass != null){
             Lock[] locks;
             try {
-                locks = AnnotationDataProvider.getTransactions(beanClass);
+                locks = AnnotationDataProvider.getLocks(beanClass);
             } catch (Exception e) {
                 return o;
             }
@@ -44,7 +44,7 @@ public class LockBeanPostProcessor implements BeanPostProcessor {
             if (locks.length == 0){
                 return o;
             }
-            final Map<String, MethodMeta> methods = AnnotationDataProvider.getTransactionableMethodsMeta(locks);
+            final Map<String, MethodMeta> methods = AnnotationDataProvider.getLockMethodsMeta(locks);
 
             return Proxy.newProxyInstance(beanClass.getClassLoader(), beanClass.getInterfaces(), new InvocationHandler() {
                 @Override

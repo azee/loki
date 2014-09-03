@@ -13,7 +13,7 @@
         <property name="localOverride" value="true"/>
         <property name="locations">
             <list>
-                <value>classpath:transaction.properties</value>
+                <value>classpath:lock.properties</value>
             </list>
         </property>
     </bean>

@@ -14,7 +14,7 @@ import java.util.Map;
  */
 @Service
 public class AnnotationDataProvider {
-    public static Lock[] getTransactions(Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    public static Lock[] getLocks(Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Annotation transactionable = clazz.getAnnotation(Lockable.class);
         if (transactionable == null){
             transactionable = getAnnotationFromInterfaces(clazz, Lockable.class);
@@ -22,11 +22,11 @@ public class AnnotationDataProvider {
         if (transactionable == null) {
             return new Lock[]{};
         }
-        Method method = Lockable.class.getMethod("transactions", (Class[]) null);
+        Method method = Lockable.class.getMethod("locks", (Class[]) null);
         return (Lock[]) method.invoke(transactionable, (Object[])null);
     }
 
-    public static Map<String, MethodMeta> getTransactionableMethodsMeta(Lock[] locks){
+    public static Map<String, MethodMeta> getLockMethodsMeta(Lock[] locks){
         Map<String, MethodMeta> methods = new HashMap<String, MethodMeta>();
         for (Lock lock : locks){
             MethodMeta methodMeta = new MethodMeta();
