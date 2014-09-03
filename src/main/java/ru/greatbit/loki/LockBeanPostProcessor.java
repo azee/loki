@@ -24,7 +24,8 @@ public class LockBeanPostProcessor implements BeanPostProcessor {
     public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
         Class<?> beanClass = o.getClass();
         if (beanClass.isAnnotationPresent(Lockable.class)
-                || classInterfacesContainAnnotation(beanClass, Lockable.class)){
+                || classInterfacesContainAnnotation(beanClass, Lockable.class)
+                || classMethodContainAnnotation(beanClass, Lock.class)){
             map.put(s, beanClass);
         }
         return o;
@@ -34,18 +35,11 @@ public class LockBeanPostProcessor implements BeanPostProcessor {
     public Object postProcessAfterInitialization(final Object o, String s) throws BeansException {
         final Class beanClass = map.get(s);
         if (beanClass != null){
-            Lock[] locks;
-            try {
-                locks = AnnotationDataProvider.getLocks(beanClass);
-            } catch (Exception e) {
+
+            final Map<String, MethodMeta> methods = AnnotationDataProvider.getLockMethodsMeta(beanClass);
+            if (methods.size() == 0){
                 return o;
             }
-
-            if (locks.length == 0){
-                return o;
-            }
-            final Map<String, MethodMeta> methods = AnnotationDataProvider.getLockMethodsMeta(locks);
-
             return Proxy.newProxyInstance(beanClass.getClassLoader(), beanClass.getInterfaces(), new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
@@ -76,6 +70,15 @@ public class LockBeanPostProcessor implements BeanPostProcessor {
     private boolean classInterfacesContainAnnotation(Class clazz, Class annotation){
         for (Class interfaceClass : clazz.getInterfaces()){
             if (interfaceClass.isAnnotationPresent(annotation)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean classMethodContainAnnotation(Class clazz, Class annotation){
+        for (Method method : clazz.getDeclaredMethods()){
+            if (method.isAnnotationPresent(annotation)){
                 return true;
             }
         }
