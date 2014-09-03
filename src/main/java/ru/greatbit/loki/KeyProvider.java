@@ -3,6 +3,7 @@ package ru.greatbit.loki;
 import ru.greatbit.loki.data.MethodMeta;
 import ru.greatbit.utils.refclection.FieldsFetcher;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
@@ -16,17 +17,35 @@ public class KeyProvider {
     private static final String DELIM = "-";
 
     public static String getKey(Class clazz, Method method, Object[] args, MethodMeta meta) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        if (meta == null || meta.getIdPath() == null || "".equals(meta.getIdPath())
-                || args.length == 0 || meta.getIdArgumentIndex() >= args.length){
+        //Ignore incorrect parameters
+        if (meta == null || args.length == 0){
             return returnDefault(clazz, method);
         }
 
+        //Redefine index if parameter is annotated as LockId
+        Annotation[][] annotations = method.getParameterAnnotations();
+        for (int i = 0; i < annotations.length; i++){
+            for (Annotation annotation : annotations[i]){
+                if (annotation instanceof LockId){
+                    meta.setIdArgumentIndex(i);
+                    meta.setIdPath(((LockId) annotation).path());
+                }
+            }
+        }
 
+        //Couldn't find parameter containing lock id
+        if (meta.getIdArgumentIndex() >= args.length || meta.getIdArgumentIndex() < 0
+                || meta.getIdPath() == null || "".equals(meta.getIdPath())){
+            return returnDefault(clazz, method);
+        }
+
+        //Get an argument
         Object arg = args[meta.getIdArgumentIndex()];
         if (arg == null){
             return returnDefault(clazz, method);
         }
 
+        //Find a value in the argiment
         List<String> path = new LinkedList<String>();
         path.addAll(Arrays.asList(meta.getIdPath().split("/.")));
 

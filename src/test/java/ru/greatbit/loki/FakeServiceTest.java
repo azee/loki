@@ -41,6 +41,9 @@ public class FakeServiceTest {
         fakeService.doSmt1(new FakeObject(), "Value2");
         verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceImpl-doSmt1")));
 
+        fakeService.doSmt2(new FakeObject(), new FakeObject().withId("SomeId2"));
+        verify(lockProvider).getLock(argThat(is("SomeId2")));
+
         FakeObject fo = new FakeObject();
         fakeService.doSmtParent(new FakeObject(), fo);
         verify(lockProvider).getLock(argThat(is(fo.toString())));

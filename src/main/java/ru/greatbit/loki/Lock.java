@@ -5,6 +5,6 @@ package ru.greatbit.loki;
  */
 public @interface Lock {
     public String methodName();
-    public int parameter();
-    public String lockIdPath();
+    public int parameter() default -1;
+    public String lockIdPath() default "";
 }
