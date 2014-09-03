@@ -1,6 +1,7 @@
 package ru.greatbit.loki.mock.byinterface;
 
 import org.springframework.stereotype.Component;
+import ru.greatbit.loki.Lock;
 import ru.greatbit.loki.LockId;
 import ru.greatbit.loki.mock.beans.FakeObject;
 
@@ -25,11 +26,13 @@ public class FakeServiceImpl implements FakeService{
     }
 
     @Override
-    public void doSmt2(FakeObject valueToUpdate, @LockId FakeObject id) {
+    @Lock
+    public void doSmt2(FakeObject valueToUpdate, @LockId(path = "id") FakeObject id) {
 
     }
 
     @Override
+    @Lock
     public void doSmt3(FakeObject valueToUpdate, @LockId(path = "") String id) {
 
     }
