@@ -15,15 +15,15 @@ import java.util.Map;
 @Service
 public class AnnotationDataProvider {
     public static Lock[] getLocks(Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Annotation transactionable = clazz.getAnnotation(Lockable.class);
-        if (transactionable == null){
-            transactionable = getAnnotationFromInterfaces(clazz, Lockable.class);
+        Annotation lockable = clazz.getAnnotation(Lockable.class);
+        if (lockable == null){
+            lockable = getAnnotationFromInterfaces(clazz, Lockable.class);
         }
-        if (transactionable == null) {
+        if (lockable == null) {
             return new Lock[]{};
         }
         Method method = Lockable.class.getMethod("locks", (Class[]) null);
-        return (Lock[]) method.invoke(transactionable, (Object[])null);
+        return (Lock[]) method.invoke(lockable, (Object[])null);
     }
 
     public static Map<String, MethodMeta> getLockMethodsMeta(Lock[] locks){
