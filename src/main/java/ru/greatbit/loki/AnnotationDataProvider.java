@@ -15,9 +15,9 @@ import java.util.Map;
 @Service
 public class AnnotationDataProvider {
     public static Lock[] getLocks(Class clazz) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-        Annotation lockable = clazz.getAnnotation(Lockable.class);
+        Annotation lockable = getAnnotationFromInterfaces(clazz, Lockable.class);
         if (lockable == null){
-            lockable = getAnnotationFromInterfaces(clazz, Lockable.class);
+            lockable = clazz.getAnnotation(Lockable.class);
         }
         if (lockable == null) {
             return new Lock[]{};

@@ -9,6 +9,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import ru.greatbit.loki.mock.FakeObject;
 import ru.greatbit.loki.mock.FakeService;
+import ru.greatbit.loki.mock.FakeServiceIndividual;
+import ru.greatbit.loki.mock.FakeServiceIndividualInterface;
+
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.argThat;
 import static org.mockito.Mockito.verify;
@@ -24,12 +27,15 @@ public class FakeServiceTest {
     @Autowired
     FakeService fakeService;
 
+    @Autowired
+    FakeServiceIndividualInterface fakeServiceIndividual;
+
     @ReplaceWithMock
     @Autowired
     private LockProvider lockProvider;
 
     @Test
-    public void testStringPaths(){
+    public void testLockByInterface(){
         fakeService.doSmt("Value1", "Value2");
         verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceImpl-doSmt")));
 
@@ -42,5 +48,21 @@ public class FakeServiceTest {
 
         fakeService.doSmtParent(new FakeObject(), new FakeObject().withId("SomeId"));
         verify(lockProvider).getLock(argThat(is("SomeId")));
+    }
+
+    @Test
+    public void testLockByClass(){
+        fakeServiceIndividual.doSmt("Value1", "Value2");
+        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceIndividual-doSmt")));
+
+        fakeServiceIndividual.doSmt1(new FakeObject(), "Value2");
+        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.FakeServiceIndividual-doSmt1")));
+
+        FakeObject fo = new FakeObject();
+        fakeServiceIndividual.doSmtParent(new FakeObject(), fo);
+        verify(lockProvider).getLock(argThat(is(fo.toString())));
+
+        fakeServiceIndividual.doSmtParent(new FakeObject(), new FakeObject().withId("SomeIdIndividual"));
+        verify(lockProvider).getLock(argThat(is("SomeIdIndividual")));
     }
 }

@@ -10,7 +10,7 @@ import ru.greatbit.loki.Lockable;
 @Lockable(locks = {
         @Lock(methodName = "doSmt", parameter = 1, lockIdPath = ""),
         @Lock(methodName = "doSmt1", parameter = 1, lockIdPath = ""),
-        @Lock(methodName = "doSmt2", parameter = 1, lockIdPath = "id")
+        @Lock(methodName = "doSmtParent", parameter = 1, lockIdPath = "id")
 })
 @Service
 public interface FakeService extends FakeServiceBase{
