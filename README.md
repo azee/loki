@@ -1,2 +1,4 @@
-mongo-spring-transaction
+mongo-spring-loki
 ========================
+
+A distributive locking framework
