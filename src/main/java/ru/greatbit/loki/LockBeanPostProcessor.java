@@ -10,12 +10,11 @@ import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.locks.Lock;
 
 /**
  * Created by azee on 12.08.14.
  */
-public class TransactionBeanPostProcessor implements BeanPostProcessor {
+public class LockBeanPostProcessor implements BeanPostProcessor {
     private Map<String, Class> map = new HashMap<String, Class>();
 
     @Autowired
@@ -24,8 +23,8 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
     @Override
     public Object postProcessBeforeInitialization(Object o, String s) throws BeansException {
         Class<?> beanClass = o.getClass();
-        if (beanClass.isAnnotationPresent(Transactionable.class)
-                || classInterfacesContainAnnotation(beanClass, Transactionable.class)){
+        if (beanClass.isAnnotationPresent(Lockable.class)
+                || classInterfacesContainAnnotation(beanClass, Lockable.class)){
             map.put(s, beanClass);
         }
         return o;
@@ -35,17 +34,17 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
     public Object postProcessAfterInitialization(final Object o, String s) throws BeansException {
         final Class beanClass = map.get(s);
         if (beanClass != null){
-            Transaction[] transactions;
+            Lock[] locks;
             try {
-                transactions = TransactionsProvider.getTransactions(beanClass);
+                locks = AnnotationDataProvider.getTransactions(beanClass);
             } catch (Exception e) {
                 return o;
             }
 
-            if (transactions.length == 0){
+            if (locks.length == 0){
                 return o;
             }
-            final Map<String, MethodMeta> methods = TransactionsProvider.getTransactionableMethodsMeta(transactions);
+            final Map<String, MethodMeta> methods = AnnotationDataProvider.getTransactionableMethodsMeta(locks);
 
             return Proxy.newProxyInstance(beanClass.getClassLoader(), beanClass.getInterfaces(), new InvocationHandler() {
                 @Override
@@ -54,7 +53,7 @@ public class TransactionBeanPostProcessor implements BeanPostProcessor {
                         return method.invoke(o, args);
                     }
 
-                    Lock lock = null;
+                    java.util.concurrent.locks.Lock lock = null;
                     try {
                         lock = lockProvider.getLock(KeyProvider.getKey(beanClass, method, args, methods.get(method.getName())));
                         if (lock != null){

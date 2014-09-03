@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE})
-public @interface Transactionable {
-    public Transaction[] transactions() default {};
+public @interface Lockable {
+    public Lock[] transactions() default {};
 }
