@@ -13,8 +13,7 @@ import ru.greatbit.loki.Lockable;
         @Lock(methodName = "doSmt2", parameter = 1, lockIdPath = "id")
 })
 @Service
-public interface FakeService {
+public interface FakeService extends FakeServiceBase{
     public void doSmt(String valueToUpdate, String id);
     public void doSmt1(FakeObject valueToUpdate, String id);
-    public void doSmt2(FakeObject valueToUpdate, FakeObject id);
 }

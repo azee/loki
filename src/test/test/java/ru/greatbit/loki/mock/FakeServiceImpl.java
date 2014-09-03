@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class FakeServiceImpl implements FakeService{
     @Override
-    public void doSmt2(FakeObject valueToUpdate, FakeObject id) {
+    public void doSmtParent(FakeObject valueToUpdate, FakeObject id) {
 
     }
 
