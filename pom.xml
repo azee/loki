@@ -10,7 +10,7 @@
 
     <groupId>ru.greatbit</groupId>
     <artifactId>loki</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <name>Loki</name>
     <packaging>jar</packaging>
