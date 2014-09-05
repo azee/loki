@@ -93,3 +93,7 @@ For more examples please look at the tests within the project.
 Future versions
 ========================
 In Java 8 method parameter names will be available in runtime even if the code was compiled without -d attribute. So parameterNumber will be replaced with parameterName.
+
+Build
+========================
+http://azee.people.yandex.net/job/loki/
