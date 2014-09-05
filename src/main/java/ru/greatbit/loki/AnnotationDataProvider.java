@@ -12,6 +12,12 @@ import java.util.*;
  */
 @Service
 public class AnnotationDataProvider {
+
+    /**
+     * Collect all lock data from class
+     * @param clazz
+     * @return
+     */
     public static Map<String, MethodMeta> getLockMethodsMeta(Class clazz){
         Map<String, MethodMeta> methods = new HashMap<String, MethodMeta>();
 
@@ -49,6 +55,11 @@ public class AnnotationDataProvider {
         return methods;
     }
 
+    /**
+     * Get locks defined on class by Lockable annotation
+     * @param clazz
+     * @return
+     */
     public static Lock[] getClassLocks(Class clazz){
         Annotation lockable = getAnnotationFromInterfaces(clazz, Lockable.class);
         if (lockable == null){
@@ -66,6 +77,12 @@ public class AnnotationDataProvider {
 
     }
 
+    /**
+     * Get locks defined on interfaces by Lockable annotation
+     * @param clazz
+     * @param annotation
+     * @return
+     */
     public static Annotation getAnnotationFromInterfaces(Class clazz, Class annotation){
         for (Class interfaceClass : clazz.getInterfaces()){
             if (interfaceClass.isAnnotationPresent(annotation)){

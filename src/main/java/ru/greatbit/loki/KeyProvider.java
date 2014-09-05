@@ -3,7 +3,6 @@ package ru.greatbit.loki;
 import ru.greatbit.loki.data.MethodMeta;
 import ru.greatbit.utils.refclection.FieldsFetcher;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
