@@ -9,9 +9,9 @@ import ru.greatbit.loki.mock.beans.FakeObject;
  * Created by azee on 13.08.14.
  */
 @Lockable(locks = {
-        @Lock(methodName = "doSmt", parameter = 1, lockIdPath = ""),
-        @Lock(methodName = "doSmt1", parameter = 1, lockIdPath = ""),
-        @Lock(methodName = "doSmtParent", parameter = 1, lockIdPath = "id")
+        @Lock(methodName = "doSmt", signature = {String.class, String.class}, parameter = 1, lockIdPath = ""),
+        @Lock(methodName = "doSmt1", signature = {FakeObject.class, String.class}, parameter = 1, lockIdPath = ""),
+        @Lock(methodName = "doSmtParent", signature = {FakeObject.class, FakeObject.class}, parameter = 1, lockIdPath = "id")
 
 })
 @Component

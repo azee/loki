@@ -21,7 +21,8 @@ public class AnnotationDataProvider {
             methodMeta.setName(lock.methodName());
             methodMeta.setIdArgumentIndex(lock.parameter());
             methodMeta.setIdPath(lock.lockIdPath());
-            methods.put(lock.methodName(), methodMeta);
+            methodMeta.setSignature(Arrays.asList(lock.signature()).toString());
+            methods.put(String.format("%s-%s", methodMeta.getName(), methodMeta.getSignature()), methodMeta);
         }
 
         //Collect meta from methods annotations
@@ -29,6 +30,7 @@ public class AnnotationDataProvider {
             if (method.isAnnotationPresent(Lock.class)){
                 MethodMeta methodMeta = new MethodMeta();
                 methodMeta.setName(method.getName());
+                methodMeta.setSignature(Arrays.asList(method.getParameterTypes()).toString());
 
                 //Get data from LockId annotation
                 Annotation[][] annotations = method.getParameterAnnotations();
@@ -40,7 +42,7 @@ public class AnnotationDataProvider {
                         }
                     }
                 }
-                methods.put(method.getName(), methodMeta);
+                methods.put(String.format("%s-%s", methodMeta.getName(), methodMeta.getSignature()), methodMeta);
             }
         }
 

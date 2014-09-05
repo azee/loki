@@ -7,6 +7,15 @@ public class MethodMeta {
     private String name;
     private int idArgumentIndex;
     private String idPath;
+    private String signature;
+
+    public String getSignature() {
+        return signature;
+    }
+
+    public void setSignature(String signature) {
+        this.signature = signature;
+    }
 
     public String getName() {
         return name;

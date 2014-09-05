@@ -8,6 +8,7 @@ import ru.greatbit.loki.data.MethodMeta;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,13 +44,16 @@ public class LockBeanPostProcessor implements BeanPostProcessor {
             return Proxy.newProxyInstance(beanClass.getClassLoader(), beanClass.getInterfaces(), new InvocationHandler() {
                 @Override
                 public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-                    if (!methods.keySet().contains(method.getName())){
+                    String signature = String.format("%s-%s", method.getName(),
+                            Arrays.asList(method.getParameterTypes()).toString());
+                    if (!methods.keySet().contains(signature)){
                         return method.invoke(o, args);
                     }
 
                     java.util.concurrent.locks.Lock lock = null;
                     try {
-                        lock = lockProvider.getLock(KeyProvider.getKey(beanClass, method, args, methods.get(method.getName())));
+                        lock = lockProvider.getLock(KeyProvider.getKey(beanClass, method, args,
+                                methods.get(signature)));
                         if (lock != null){
                             lock.lock();
                             return method.invoke(o, args);
