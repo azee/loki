@@ -23,6 +23,14 @@ try{
 
 How to use
 ========================
+Add a maven dependency:
+```
+<dependency>
+    <groupId>ru.greatbit</groupId>
+    <artifactId>loki</artifactId>
+    <version>1.0</version>
+</dependency>
+```
 
 Key Provider
 ========================
