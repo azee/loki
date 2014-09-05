@@ -2,9 +2,12 @@ spring-loki
 ========================
 
 Loki is a declarative locking framework created for Spring based projects.
+
 When you are working with non-transactional datasources or shared resources it is crutial to perform opretstions consequentially.
 Within a single JVM concurrent synchronization or Locks can be used. But if your system is distributive you'll need a distributive lock.
+
 The idea is to use Locks provided by distributive shared systems such as Hazelcast or any other database.
+
 It is recommended to use inmemory databases. Hazelcast is a good choice as it features Locks mechanism from the box.
 
 Loki was created to avoid wrapping functions into try-catch and getting keys "by hand":
@@ -28,14 +31,15 @@ E.g. if you use Hazelcast, you'll need just to return hazelcastInstance.getLock(
 
 Declare Locks
 ========================
-Second you'll have to declare what methods and how they will be locked.
-There are to ways to do it - by classes and by interfaces.
+Second you'll have to declare what methods will be locked and how.
+There are to ways to do it - by classes or by interfaces.
 
 By classes.
+
 This method is used if you have an access (can edit) to the implementation of the service.
 - Add a @Lock annotation to the method.
 - Add @LockId annotation to the parameter from which lock id will be retrieved. Can be blank. In that case a lockId will be a full qualified method name.
-- Add a point delimited path (inside @LockId) to the field containing id you want to be used as licking key. Can be blank. In that case an parameter.toString will be used as a key.
+- Add a point delimited path (inside @LockId) to the field containing id you want to be used as a locking key. Can be blank. In that case a parameter.toString will be used as a key.
 
 ```
 @Lock
@@ -43,13 +47,14 @@ public void doSmt(SomeObject objValue, @LockId(path = "idContainer.id") SomeObje
 ```
 
 By interfaces.
+
 This method is used if you do not have an access to the implementation of the service but you can extend an interface. E.g. - Spring Data PagingAndSortingRepository.
 - Add a @Lockable annotation to the interface class.
 - Declare @Lock - array of methods and locking configurations
-- In @Lock you have to declare: methodName (method to be executed under the lock), signature - a list of classes of method's arguments, parameter - a number of the parameter used to retrieve lock id (starts from 0), lockIdPath - a path to to the field containing id you want to be used as licking key.
+- In @Lock you have to declare: methodName (method to be executed under the lock), signature - a list of types of method's arguments, parameter - a number of the parameter used to retrieve lock id (starts from 0), lockIdPath - a path to the field containing id you want to be used as a locking key.
 
 If the method doesn't take parameters "methodName" is the only field you have to declare.
-If lockIdPath is blank the parameter.toString() will be used as a lock key.
+If lockIdPath is blank then parameter.toString() will be used as a lock key.
 
 ```
 @Lockable(locks = {
@@ -79,4 +84,4 @@ For more examples please look at the tests within the project.
 
 Future versions
 ========================
-In Java 8 method parameter names will be available in runtime even if the code was compiled without -d attribute. So parameterNumber will be replaced with a parameterName.
+In Java 8 method parameter names will be available in runtime even if the code was compiled without -d attribute. So parameterNumber will be replaced with parameterName.
