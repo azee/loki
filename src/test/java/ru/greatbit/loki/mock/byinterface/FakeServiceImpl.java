@@ -11,39 +11,32 @@ import ru.greatbit.loki.mock.beans.FakeObject;
 @Component
 public class FakeServiceImpl implements FakeService{
     @Override
-    public void doSmtParent(FakeObject valueToUpdate, FakeObject id) {
-
-    }
+    public void doSmtParent(FakeObject valueToUpdate, FakeObject id) {}
 
     @Override
-    public void doSmt(String valueToUpdate, String id) {
-
-    }
+    public void doSmt(String valueToUpdate, String id) {}
 
     @Override
-    public void doSmt1(FakeObject valueToUpdate, String id) {
-
-    }
+    public void doSmt1(FakeObject valueToUpdate, String id) {}
 
     @Override
     @Lock
-    public void doSmt2(FakeObject valueToUpdate, @LockId(path = "id") FakeObject id) {
-
-    }
+    public void doSmt2(FakeObject valueToUpdate, @LockId(path = "id") FakeObject id) {}
 
     @Override
     @Lock
-    public void doSmt3(FakeObject valueToUpdate, @LockId(path = "") String id) {
-
-    }
+    public void doSmt3(FakeObject valueToUpdate, @LockId(path = "") String id) {}
 
     @Override
-    public void doSmtWrong(String valueToUpdate, String id) {
-
-    }
+    public void doSmtWrong(String valueToUpdate, String id) {}
 
     @Override
-    public void doSmtWrong1(String valueToUpdate, String id) {
+    public void doSmtWrong1(String valueToUpdate, String id) {}
 
-    }
+    @Override
+    public void doSmtNoParams() {}
+
+    @Override
+    @Lock
+    public void doSmtNoParams1() {}
 }

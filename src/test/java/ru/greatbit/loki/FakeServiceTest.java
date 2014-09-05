@@ -59,6 +59,13 @@ public class FakeServiceTest {
 
         fakeService.doSmtWrong1("Value1", "LockIdWrong1");
         verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.byinterface.FakeServiceImpl-doSmtWrong1")));
+
+        fakeService.doSmtNoParams();
+        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.byinterface.FakeServiceImpl-doSmtNoParams")));
+
+        fakeService.doSmtNoParams1();
+        verify(lockProvider).getLock(argThat(is("ru.greatbit.loki.mock.byinterface.FakeServiceImpl-doSmtNoParams1")));
+
     }
 
     @Test

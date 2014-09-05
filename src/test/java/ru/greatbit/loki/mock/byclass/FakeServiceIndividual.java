@@ -12,8 +12,8 @@ import ru.greatbit.loki.mock.beans.FakeObject;
         @Lock(methodName = "doSmt", signature = {String.class, String.class}, parameter = 1, lockIdPath = ""),
         @Lock(methodName = "doSmt1", signature = {FakeObject.class, String.class}, parameter = 1, lockIdPath = ""),
         @Lock(methodName = "doSmtParent", signature = {FakeObject.class, FakeObject.class}, parameter = 1, lockIdPath = "id")
-
 })
+
 @Component
 public class FakeServiceIndividual implements FakeServiceIndividualInterface{
     @Override

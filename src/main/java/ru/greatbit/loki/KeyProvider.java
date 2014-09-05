@@ -18,7 +18,7 @@ public class KeyProvider {
 
     public static String getKey(Class clazz, Method method, Object[] args, MethodMeta meta) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         //Ignore incorrect parameters
-        if (meta == null || args.length == 0){
+        if (meta == null || args == null || args.length == 0){
             return returnDefault(clazz, method);
         }
 
