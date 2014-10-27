@@ -32,7 +32,7 @@ Add a maven dependency:
 </dependency>
 ```
 
-Key Provider
+Lock Provider
 ========================
 First of all you'll need to implement a LockProvider interface. The only thing it does is returning a lock object (java.util.concurrent.locks.Lock implementation) by key.
 E.g. if you use Hazelcast, you'll need just to return hazelcastInstance.getLock(key).
