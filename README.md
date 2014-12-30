@@ -96,4 +96,4 @@ In Java 8 method parameter names will be available in runtime even if the code w
 
 Build
 ========================
-http://azee.people.yandex.net/job/loki/
+http://azee.people.yandex.net/jenkins/job/loki/
